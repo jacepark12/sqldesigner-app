@@ -4,6 +4,7 @@ This project is desktop application of WWW SQL Designer. This project uses Lt-Ma
 WWW SQL Designer allows users to create database designs, which can be saved/loaded and exported to SQL scripts. Various databases and languages are supported. Ability to import existing database design.
 
 [WWW SQL Designer](https://github.com/ondras/wwwsqldesigner)
+
 [Lt-Mayonesa/sqldesigner](https://github.com/Lt-Mayonesa/sqldesigner)
  
 
