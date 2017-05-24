@@ -26,6 +26,7 @@
   ],
   "dependencies": {
     "electron-debug": "^1.0.0",
+    "electron-json-storage": "^3.0.5",
     "electron-settings": "^3.0.14"
   },
   "devDependencies": {
