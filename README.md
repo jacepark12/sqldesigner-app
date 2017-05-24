@@ -17,6 +17,12 @@ Many database features are supported, such as keys, foreign key constraints, com
 
 WWW SQL Designer was created by [Ondrej Zara]
 
+re-designed SQL Desginer was create by [Lt-Mayonesa]
+
+## Screenshot
+
+![Screenshot](./images/screenshot1.png)
+
 ## Dev
 
 ```
