@@ -147,13 +147,45 @@ SQL.IO.prototype.clientsave = function() {
 }
 
 SQL.IO.prototype.clientload = function() {
+    const { dialog } = require('electron').remote;
+    var fs = require('fs');
     var xml = this.dom.ta.value;
-    if (!xml) {
-        alert(_("empty"));
-        return;
-    }
+    const self = this;
 
-    this.fromXMLText(xml);
+    dialog.showOpenDialog({
+        filters: [
+
+            { extensions: ['sqd'] }
+
+        ]
+    }, function(fileNames) {
+
+        if (fileNames === undefined) return;
+
+        var fileName = fileNames[0];
+
+        fs.readFile(fileName, 'utf-8', function(err, data) {
+            console.log('reading file...');
+            console.log('data : ', data);
+            xml = data;
+
+            if (!xml) {
+                alert('Slected file has no valid data. Plaese check file again');
+            } else {
+                alert('Successfully loaded selected file');
+            }
+            self.fromXMLText(xml);
+
+        });
+
+    });
+
+    // if (!xml) {
+    //     alert(_("empty"));
+    //     return;
+    // }
+
+    // this.fromXMLText(xml);
 }
 
 SQL.IO.prototype.promptName = function(title, suffix) {
