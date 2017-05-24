@@ -1,9 +1,10 @@
 # sqldesigner
-This project is desktop application of WWW SQL Designer.
+This project is desktop application of WWW SQL Designer. This project uses Lt-Mayonesa/sqldesigner repository, which re-designed WWW SQL designer
 
 WWW SQL Designer allows users to create database designs, which can be saved/loaded and exported to SQL scripts. Various databases and languages are supported. Ability to import existing database design.
 
-[Repository of WWW SQL Designer](https://github.com/ondras/wwwsqldesigner)
+[WWW SQL Designer](https://github.com/ondras/wwwsqldesigner)
+[Lt-Mayonesa/sqldesigner](https://github.com/Lt-Mayonesa/sqldesigner)
  
 
 # About
