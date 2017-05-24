@@ -1,0 +1,354 @@
+body {
+    font-family: verdana, sans serif;
+    font-size: 12px;
+    padding: 0px;
+    margin: 0px;
+    background: #FFF;
+    visibility: hidden;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+.mui-btn {
+    line-height: 0px;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    background: rgba(125,125,125,0.3);
+}
+::-webkit-scrollbar-track:hover {
+    background: rgba(125,125,125,0.5);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    background: rgba(0,0,0,0.4); 
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0,0,0,0.7); 
+}
+::-webkit-scrollbar-thumb:active {
+    background: rgba(0,0,0,0.8); 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(0,0,0,0.1);
+}
+
+#area {
+    position: relative;
+    background: transparent url(../images/back_dim.png);
+    opacity: 0.7;
+    width: 3000px;
+    height: 3000px;
+}
+
+#controls {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+#bar {
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    /*width: 100%;*/
+    transition: transform 400ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+#sub_bar {
+    width: 782px;
+    margin: 0 auto;
+    /*padding-bottom: 6px;*/
+    overflow: hidden;
+}
+
+#bar div.holder {
+    overflow: hidden;
+    float: left;
+    padding-left: 4.5px;
+    padding-right: 4.5px;
+}
+
+#bar button {
+    width: 45px;
+    height: 45px;
+    float: left;
+    line-height: normal;
+    padding: 0;
+}
+
+#bar button.small {
+    height: 20px;
+    float: none;
+    margin: 6px;
+    display: block;
+}
+
+#toogle_min {
+    position: fixed;
+    bottom: 0px;
+    z-index: 200;
+    transition: transform 400ms cubic-bezier(0.23, 1, 0.32, 1);
+    transform: translate(0px, -160px);
+}
+
+#snackbar {
+    position: fixed;
+    top: 0;
+    left: 42%;
+    min-width: 288px;
+    max-width: 568px;
+    border-radius: 2px;
+    background-color: #323232;
+    padding: 0px 24px;
+    height: 48px;
+    transition: transform 400ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+    transform: translate(0px, -48px);
+}
+#snackbar>p {
+    font-size: 14px;
+    color: rgb(255, 255, 255);
+    opacity: 1;
+    height: 48px;
+    line-height: 48px;
+    margin: 0;
+    padding: 0;
+}
+
+#minimap {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    right: 5px;
+    top: 5px;
+    background-color: #fff;
+    /*border: 1px solid #000;*/
+    opacity: 0.9;
+    overflow: hidden;
+}
+
+.mini {
+    position: absolute;
+    border: 1px solid #000;
+    background-color: #eea;
+    font-size: 1px;
+    line-height: 1px;
+}
+
+.mini_selected {
+    background-color: #f85;
+}
+
+.port {
+    position: absolute;
+    border: 2px solid #f00;
+}
+
+.table {
+    position: absolute;
+    padding: 0 6px 6px 6px;
+    cursor: pointer;
+}
+
+.table table {
+    border-collapse: collapse;
+}
+
+.table.selected {
+    /*background-color: whitesmoke;*/
+    border: 1px solid #FF4081;
+}
+
+.table thead .title {
+    text-align: center;
+    padding: 6px 30px;
+    /*font-weight: 700;*/
+}
+
+.table tbody {
+    border-right: 4px solid rgba(0,0,0,.12);
+}
+
+.table tbody.selected {
+    border-right: 6px solid rgba(0,0,0,.12);
+    background-color: whitesmoke;
+}
+
+.table tbody td .mui-select__menu {
+    height: 400px !important;
+    top: -150px !important;
+}
+
+.table tbody td {
+    padding: 3px 10px !important;
+}
+
+.table tbody td div.mui-textfield, .table tbody td div.mui-select, .table tbody td div.mui-checkbox {
+    padding-top: 2px !important;
+    margin-bottom: 0 !important;
+}
+
+.table tbody .selected {
+    font-weight: bold;
+    color: #f00;
+    display: inline-block;
+}
+
+.table tbody .title {
+    display: inline-block;
+}
+
+.primary {
+    font-weight: bold;
+}
+
+.key {
+    font-style: italic;
+}
+
+.primary.key {
+    font-style: normal;
+}
+
+.typehint {
+    font-size: 80%;
+    color: gray;
+}
+
+.comment {
+    font-size: 80%;
+    font-weight: normal;
+    margin-right: 0.5em;
+}
+
+.adding {
+    cursor: crosshair;
+}
+
+.relation {
+    overflow: hidden;
+    cursor: pointer
+}
+
+#background {
+    position: absolute;
+    background-color: #000;
+    opacity: 0.5;
+    visibility: hidden;
+}
+
+#window {
+    position: fixed;
+    visibility: hidden;
+    border-radius: 2px;
+    max-width: 960px;
+}
+
+#keys button.small {
+    width: 30px;
+    padding: 0;
+    height: 24px;
+    line-height: 0;
+}
+
+#windowtitle {
+    margin-top: 0;
+}
+
+#windowcontrol button {
+    float: right;
+}
+#textarea {
+    width: 100%;
+    height: 200px;
+}
+
+#throbber {
+    position: absolute;
+    top: 2px;
+    right: 3px;
+}
+
+#rubberband {
+    position: absolute;
+    border: 1px solid #000;
+    background: #888;
+    opacity: 0.5;
+    visibility: hidden;
+}
+
+#menu {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+}
+
+#menu>button {
+    margin: 0;
+    padding: 0 6px;
+}
+
+#menu input {
+    margin: 0 auto;
+    display: block;
+}
+#menu li button {
+    width: 100%;
+}
+
+.tooltip {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    -webkit-transform-origin: top center;
+    transform-origin: top center;
+    z-index: 999;
+    background: rgba(97,97,97,.9);
+    border-radius: 2px;
+    color: #fff;
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 14px;
+    max-width: 170px;
+    position: fixed;
+    top: -500px;
+    left: -500px;
+    padding: 8px;
+    text-align: center;
+}
+.tooltip.is-active {
+    -webkit-animation: pulse 200ms cubic-bezier(0,0,.2,1)forwards;
+    animation: pulse 200ms cubic-bezier(0,0,.2,1)forwards;
+}
+@keyframes pulse {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        -webkit-transform: scale(.99);
+        transform: scale(.99);
+    }
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+        visibility: visible;
+    }
+}

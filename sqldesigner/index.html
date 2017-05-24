@@ -1,0 +1,346 @@
+<!doctype html>
+<!--
+        WWW SQL Designer, (C) 2005-2015 Ondrej Zara, ondras@zarovi.cz
+        Version: 2.7
+        See license.txt for licencing information.
+-->
+<html>
+
+    <head>
+        <title>Desktop SQL Designer</title>
+        <meta name="viewport" content="initial-scale=1,maximum-scale=1" />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <link rel="stylesheet" href="styles/print.css" type="text/css" media="print" />
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link rel="stylesheet" href="styles/mui.min.css" />
+        <link rel="stylesheet" href="styles/style.css" media="all" />
+
+        <!--Let browser know website is optimized for mobile-->
+
+        <script src="js/jquery.js"></script>
+        <script src="js/oz.js"></script>
+        <script src="js/config.js"></script>
+        <script src="js/globals.js"></script>
+        <script src="js/visual.js"></script>
+        <script src="js/row.js"></script>
+        <script src="js/table.js"></script>
+        <script src="js/relation.js"></script>
+        <script src="js/key.js"></script>
+        <script src="js/rubberband.js"></script>
+        <script src="js/map.js"></script>
+        <script src="js/toggle.js"></script>
+        <script src="js/snackbar.js"></script>
+        <script src="js/tooltip.js"></script>
+        <script src="js/io.js"></script>
+        <script src="js/tablemanager.js"></script>
+        <script src="js/rowmanager.js"></script>
+        <script src="js/keymanager.js"></script>
+        <script src="js/window.js"></script>
+        <script src="js/options.js"></script>
+        <script src="js/wwwsqldesigner.js"></script>
+        <script src="js/mui.min.js"></script>
+    </head>
+
+    <body>
+        <div id="area"></div>
+        <div id="controls">
+            <div id="menu" class="mui-dropdown mui--z1">
+                <button class="mui-btn mui-btn--raised mui-btn" data-mui-toggle="dropdown"><i class="material-icons">menu</i></button>
+                <ul class="mui-dropdown__menu">
+                    <li>
+                        <button class="mui-btn mui-btn--flat" type="button" id="saveload"></button>
+                    </li>
+                    <li>
+                        <button class="mui-btn mui-btn--flat" type="button" id="options">Hola</button>
+                    </li>
+                    <li>
+                        <a id="docs" class="mui-btn mui-btn--flat" href="https://github.com/lt-mayonesa/sqldesigner/wiki" target="_blank">Docs</a>
+                    </li>
+                </ul>
+            </div>
+            <p style="margin-left: 12px; padding-top: 60px;">
+                <small>[F2] Save local | [F4] Load local<br>[+] / [-] zoom</small>
+            </p>
+            <button id="toogle_min" class="mui-btn mui-btn--raised mui-btn--small mui--align-middle"><i class="material-icons">keyboard_arrow_up</i></button>
+
+            <div id="bar" class="mui-panel mui--z2">
+                <!--tooltips-->
+                <span class="tooltip" data-for="addtable"></span>
+                <span class="tooltip" data-for="edittable"></span>
+                <span class="tooltip" data-for="tablekeys"></span>
+                <span class="tooltip" data-for="removetable"></span>
+                <span class="tooltip" data-for="addrow"></span>
+                <span class="tooltip" data-for="editrow"></span>
+                <span class="tooltip" data-for="uprow"></span>
+                <span class="tooltip" data-for="downrow"></span>
+                <span class="tooltip" data-for="foreigncreate"></span>
+                <span class="tooltip" data-for="foreignconnect"></span>
+                <span class="tooltip" data-for="foreigndisconnect"></span>
+                <span class="tooltip" data-for="removerow"></span>
+                <span class="tooltip" data-for="aligntables"></span>
+                <span class="tooltip" data-for="cleartables"></span>
+
+                <div class="holder">
+                    <button type="button" id="addtable" class="mui-btn mui-btn--raised mui-btn--accent"><i class="material-icons">add</i></button>
+                    <button type="button" id="edittable" class="mui-btn mui-btn--raised"><i class="material-icons">edit</i></button>
+                    <button type="button" id="tablekeys"  class="mui-btn mui-btn--raised"><i class="material-icons">vpn_key</i></button>
+                    <button type="button" id="removetable"  class="mui-btn mui-btn--raised"><i class="material-icons">delete</i></button>
+                </div>
+                <div class="holder mui--divider-left">
+                    <button type="button" id="addrow"  class="mui-btn mui-btn--raised"><i class="material-icons">add_circle_outline</i></button>
+                    <button type="button" id="editrow"  class="mui-btn mui-btn--raised" ><i class="material-icons">border_color</i></button>
+                    <div class="holder">
+                        <button type="button" id="uprow" class="small mui-btn mui-btn--raised"><i class="material-icons">arrow_drop_up</i></button>
+                        <button type="button" id="downrow" class="small mui-btn mui-btn--raised" ><i class="material-icons">arrow_drop_down</i></button>
+                    </div>
+                    <button type="button" id="foreigncreate"  class="mui-btn mui-btn--raised" ><i class="material-icons">play_circle_outline</i></button>
+                    <button type="button" id="foreignconnect"  class="mui-btn mui-btn--raised" ><i class="material-icons">compare_arrows</i></button>
+                    <button type="button" id="foreigndisconnect"  class="mui-btn mui-btn--raised" ><i class="material-icons">content_cut</i></button>
+                    <button type="button" id="removerow"  class="mui-btn mui-btn--raised" ><i class="material-icons">remove</i></button>
+                </div>
+                <div class="holder mui--divider-left">
+                    <button type="button" id="aligntables"  class="mui-btn mui-btn--raised" ><i class="material-icons">grid_on</i></button>
+                    <button type="button" id="cleartables"  class="mui-btn mui-btn--raised" ><i class="material-icons">delete_sweep</i></button>
+                    <button type="button" id="toggle" class="mui-btn mui-btn--flat" ><i class="material-icons">keyboard_arrow_down</i></button>
+                </div>
+            </div>
+
+            <div id="rubberband"></div>
+
+            <div id="minimap" class="mui--z1"></div>
+
+            <div id="snackbar"></div>
+
+            <div id="background"></div>
+
+            <div id="window" class="mui-panel mui--z3">
+                <img id="throbber" src="images/throbber.gif" alt="" title="" />
+                <div>
+                    <h2 id="windowtitle"></h2>
+                </div>
+                <div id="windowcontent"></div>
+                <div id="windowcontrol">
+                    <button id="windowok" class="mui-btn mui-btn--flat mui-btn--accent"><i class="material-icons">done</i></button>
+                    <button id="windowcancel" class="mui-btn mui-btn--flat" ><i class="material-icons">clear</i></button>
+                </div>
+            </div>
+        </div>
+        <!-- #controls -->
+
+        <div id="opts">
+            <small>* <span class="small" id="optionsnotice"></span></small>
+            <hr>
+            <div class="mui-container-fluid">
+                <div class="mui-row">
+                    <div class="mui-col-md-12 mui-select">
+                        <label id="language" for="optionlocale"></label>
+                        <select id="optionlocale">
+                            <option></option>
+                        </select>
+                        <small>*</small>
+                    </div>
+                </div>
+                <div class="mui-row">
+                    <div class="mui-col-md-12 mui-select">
+                        <label id="db" for="optiondb"></label>
+                        <select id="optiondb">
+                            <option></option>
+                        </select>
+                        <small>*</small>
+                    </div>
+                </div>
+                <div class="mui-row">
+                    <div class="mui-col-md-12 mui-textfield">
+                        <input type="text" size="4" id="optionsnap" />
+                        <label id="snap" for="optionsnap"></label>
+                        <span class="small" id="optionsnapnotice"></span>
+                    </div>
+                </div>
+                <div class="mui-row">
+                    <div class="mui-col-md-12 mui-textfield">
+                        <input type="text" size="6" id="optionpattern" />
+                        <label id="pattern" for="optionpattern"></label>
+                        <span class="small" id="optionpatternnotice"></span>
+                    </div>
+                </div>
+                <div class="mui-row">
+                    <div class="mui-col-md-12 mui-checkbox">
+                        <input type="checkbox" id="optionhide"/>
+                        <label id="hide" for="optionhide">
+                        </label>
+                    </div>
+                </div>
+                <div class="mui-row">
+                    <div class="mui-col-md-12 mui-checkbox">
+                        <input type="checkbox" id="optionvector" />
+                        <label id="vector" for="optionvector">
+                        </label>
+                        <small>*</small>
+                    </div>
+                </div>
+                <div class="mui-row">
+                    <div class="mui-col-md-12 mui-checkbox">
+                        <input type="checkbox" id="optionshowsize" />
+                        <label id="showsize" for="optionshowsize">
+                        </label>
+                        <small>*</small>
+                    </div>
+                </div>
+                <div class="mui-row">
+                    <div class="mui-col-md-12 mui-checkbox">
+                        <input type="checkbox" id="optionshowtype" />
+                        <label id="showtype" for="optionshowtype"></label>
+                        <small>*</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="io">
+            <div class="mui-container-fluid">
+                <div class="mui-row">
+                    <div class="mui-col-md-12">
+                        <ul class="mui-tabs__bar mui-tabs__bar--justified">
+                            <li class="mui--is-active"><a data-mui-toggle="tab" data-mui-controls="pane-client" id="client"></a></li>
+                            <li><a data-mui-toggle="tab" data-mui-controls="pane-server" id="server"></a></li>
+                        </ul>
+                        <div class="mui-tabs__pane mui--is-active" id="pane-client">
+                            <!--<h3 id="client"></h3>-->
+                            <div>
+                                <button class="mui-btn mui-btn--raised" id="clientsave" ></button>
+                                <button class="mui-btn mui-btn--raised" id="clientload" ></button>
+                            </div>
+                            <div>
+                                <button class="mui-btn mui-btn--raised" id="clientlocalsave" ></button>
+                                <button class="mui-btn mui-btn--raised" id="clientlocalload" ></button>
+                                <button class="mui-btn mui-btn--raised" id="clientlocallist" ></button>
+                            </div>
+                            <div>
+                                <button class="mui-btn mui-btn--raised" id="dropboxsave" ></button>
+                                <!-- may get hidden by dropBoxInit() -->
+                                <button class="mui-btn mui-btn--raised" id="dropboxload" ></button>
+                                <!-- may get hidden by dropBoxInit() -->
+                                <button class="mui-btn mui-btn--raised" id="dropboxlist" ></button>
+                                <!-- may get hidden by dropBoxInit() -->
+                            </div>
+                        </div>
+                        <div class="mui-tabs__pane" id="pane-server"  style="padding-top: 16px;">
+                            <div class="mui-select">
+                                <label for="backend" id="backendlabel"></label>
+                                <select id="backend">
+                                    <option></option>
+                                </select>
+                            </div>
+                            <button class="mui-btn mui-btn--raised" id="serversave" ></button>
+                            <button class="mui-btn mui-btn--raised" id="quicksave" ></button>
+                            <button class="mui-btn mui-btn--raised" id="serverload" ></button>
+                            <button class="mui-btn mui-btn--raised" id="serverlist" ></button>
+                            <button class="mui-btn mui-btn--raised" id="serverimport" ></button>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="mui-row">
+                    <div class="mui-col-md-12">
+                        <h3 id="output"></h3>
+                        <div class="mui-textfield">
+                            <textarea id="textarea" rows="1" cols="1"></textarea>
+                        </div>
+                        <button class="mui-btn mui-btn--raised mui-btn--accent" id="clientsql" ></button>
+                        <!--modified by javascript later-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="keys" class="mui-container-fluid">
+            <div class="mui-row">
+                <h3 id="keyslistlabel"></h3>
+                <div class="mui-col-md-12">
+                    <div class="mui-select">
+                        <label for="keyslist">Keys</label>
+                        <select id="keyslist">
+                            <option></option>
+                        </select>
+                    </div>
+                    <button id="keyadd" class="mui-btn mui-btn--primary" ></button>
+                    <button id="keyremove" class="mui-btn mui-btn--danger" ></button>
+                </div>
+            </div>
+            <div class="mui-row">
+                <h3 id="keyedit"></h3>
+                <div class="mui-col-md-12">
+                    <div class="mui-row">
+                        <div class="mui-col-md-6">
+                            <div class="mui-select">
+                                <label for="keytype" id="keytypelabel"></label>
+                                <select id="keytype">
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mui-col-md-6">
+                            <div class="mui-textfield">
+                                <input type="text" id="keyname" size="10" />
+                                <label for="keyname" id="keynamelabel"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mui-row">
+                        <div class="mui-col-md-5">
+                            <div>
+                                <label for="keyfields" id="keyfieldslabel"></label>
+                            </div>
+                            <select style="width: 100%" id="keyfields" size="5" multiple="multiple">
+                                <option></option>
+                            </select>
+                        </div>
+                        <div class="mui-col-md-2">
+                            <ul class="mui-list--unstyled">
+                                <li>                                        
+                                    <button class="mui-btn mui-btn--raised small" id="keyleft"><i class="material-icons">fast_rewind</i></button>
+                                </li>
+                                <li>
+                                    <button class="mui-btn mui-btn--raised small" id="keyright"><i class="material-icons">fast_forward</i></button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mui-col-md-5">
+                            <div>
+                                <label for="keyavail" id="keyavaillabel"></label>
+                            </div>
+                            <select style="width: 100%" id="keyavail" size="5" multiple="multiple">
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="table" class="mui-container-fluid">
+            <div class="mui-row">
+                <div class="mui-col-md-12">
+                    <div class="mui-textfield">
+                        <input id="tablename" type="text" />
+                        <label id="tablenamelabel" for="tablename"></label>
+                    </div>
+                </div>
+                <div class="mui-col-md-12">
+                    <div class="mui-textfield">
+                        <textarea rows="5" cols="40" id="tablecomment"></textarea>
+                        <label id="tablecommentlabel" for="tablecomment"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var d = new SQL.Designer();
+
+        </script>
+    </body>
+
+</html>
