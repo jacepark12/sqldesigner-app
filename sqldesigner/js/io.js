@@ -1,6 +1,7 @@
 /* global SQL, OZ */
 
 SQL.IO = function(owner) {
+    var fs = require('fs');
 
     this.owner = owner;
     this._name = ""; /* last used name with server load/save */
@@ -129,7 +130,11 @@ SQL.IO.prototype.clientsave = function() {
     var fs = require('fs');
     var xml = this.owner.toXML();
     this.dom.ta.value = xml;
-    dialog.showSaveDialog(function(fileName) {
+    dialog.showSaveDialog({
+        filters: [
+            { name: 'sqldesigner', extensions: ['sqd'] }
+        ]
+    }, function(fileName) {
 
         if (fileName === undefined) return;
 
