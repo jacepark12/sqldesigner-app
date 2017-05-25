@@ -3,6 +3,8 @@
 SQL.Designer = function() {
     SQL.Designer = this;
 
+    this.options = {};
+
     this.tables = [];
     this.relations = [];
     this.title = document.title;
@@ -259,10 +261,11 @@ SQL.Designer.prototype.getDefaultOption = function(name) {
     }
 }
 
-SQL.Designer.prototype.setOption = function(name, value) {
-    var obj = this.getCookie();
-    obj[name] = value;
-    this.setCookie(obj);
+SQL.Designer.prototype.setOption = function(key, value) {
+    // var obj = this.getCookie();
+    // obj[name] = value;
+    // this.setCookie(obj);
+    this.options[key] = value;
 }
 
 SQL.Designer.prototype.raise = function(table) { /* raise a table */
