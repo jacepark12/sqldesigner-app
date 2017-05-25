@@ -1,6 +1,6 @@
 /* global SQL, OZ */
 
-SQL.Designer = function () {
+SQL.Designer = function() {
     SQL.Designer = this;
 
     this.tables = [];
@@ -13,8 +13,8 @@ SQL.Designer = function () {
     this.snackbar = new SQL.Snackbar(this, OZ.$("snackbar"));
 
     var style = window.getComputedStyle(document.body, null).getPropertyValue('font-size');
-//    this.fontSize = parseFloat(style);
-//    this.bgSize = 100;
+    //    this.fontSize = parseFloat(style);
+    //    this.bgSize = 100;
     this.zScale = 1;
 
     OZ.Event.add(document, "keydown", this.press.bind(this));
@@ -40,15 +40,15 @@ SQL.Designer = function () {
     this.flag = 2;
     this.requestLanguage();
     this.requestDB();
-    
-    OZ.select('.tooltip').forEach(function (each) {
+
+    OZ.select('.tooltip').forEach(function(each) {
         new SQL.Tooltip(OZ.$(each.dataset.for), each);
     });
 };
 SQL.Designer.prototype = Object.create(SQL.Visual.prototype);
 
 /* update area size */
-SQL.Designer.prototype.sync = function () {
+SQL.Designer.prototype.sync = function() {
     var w = this.minSize[0];
     var h = this.minSize[0];
     for (var i = 0; i < this.tables.length; i++) {
@@ -67,14 +67,14 @@ SQL.Designer.prototype.sync = function () {
     }
 };
 
-SQL.Designer.prototype.requestLanguage = function () { /* get locale file */
+SQL.Designer.prototype.requestLanguage = function() { /* get locale file */
     var bp = this.getOption("staticpath");
     var lang = this.getOption("locale")
     var url = bp + "locale/" + lang + ".xml";
-    OZ.Request(url, this.languageResponse.bind(this), {method: "get", xml: true});
+    OZ.Request(url, this.languageResponse.bind(this), { method: "get", xml: true });
 };
 
-SQL.Designer.prototype.languageResponse = function (xmlDoc) {
+SQL.Designer.prototype.languageResponse = function(xmlDoc) {
     if (xmlDoc) {
         var strings = xmlDoc.getElementsByTagName("string");
         for (var i = 0; i < strings.length; i++) {
@@ -89,14 +89,14 @@ SQL.Designer.prototype.languageResponse = function (xmlDoc) {
     }
 }
 
-SQL.Designer.prototype.requestDB = function () { /* get datatypes file */
+SQL.Designer.prototype.requestDB = function() { /* get datatypes file */
     var db = this.getOption("db");
     var bp = this.getOption("staticpath");
     var url = bp + "db/" + db + "/datatypes.xml";
-    OZ.Request(url, this.dbResponse.bind(this), {method: "get", xml: true});
+    OZ.Request(url, this.dbResponse.bind(this), { method: "get", xml: true });
 }
 
-SQL.Designer.prototype.dbResponse = function (xmlDoc) {
+SQL.Designer.prototype.dbResponse = function(xmlDoc) {
     if (xmlDoc) {
         window.DATATYPES = xmlDoc.documentElement;
     }
@@ -106,7 +106,7 @@ SQL.Designer.prototype.dbResponse = function (xmlDoc) {
     }
 }
 
-SQL.Designer.prototype.init2 = function () { /* secondary init, after locale & datatypes were retrieved */
+SQL.Designer.prototype.init2 = function() { /* secondary init, after locale & datatypes were retrieved */
     this.map = new SQL.Map(this);
     this.rubberband = new SQL.Rubberband(this);
     this.tableManager = new SQL.TableManager(this);
@@ -129,7 +129,7 @@ SQL.Designer.prototype.init2 = function () { /* secondary init, after locale & d
     document.body.style.visibility = "visible";
 }
 
-SQL.Designer.prototype.getMaxZ = function () { /* find max zIndex */
+SQL.Designer.prototype.getMaxZ = function() { /* find max zIndex */
     var max = 0;
     for (var i = 0; i < this.tables.length; i++) {
         var z = this.tables[i].getZ();
@@ -142,7 +142,7 @@ SQL.Designer.prototype.getMaxZ = function () { /* find max zIndex */
     return max;
 }
 
-SQL.Designer.prototype.addTable = function (name, x, y) {
+SQL.Designer.prototype.addTable = function(name, x, y) {
     var max = this.getMaxZ();
     var t = new SQL.Table(this, name, x, y, max + 1);
     this.tables.push(t);
@@ -150,7 +150,7 @@ SQL.Designer.prototype.addTable = function (name, x, y) {
     return t;
 }
 
-SQL.Designer.prototype.removeTable = function (t) {
+SQL.Designer.prototype.removeTable = function(t) {
     this.tableManager.select(false);
     this.rowManager.select(false);
     var idx = this.tables.indexOf(t);
@@ -161,13 +161,13 @@ SQL.Designer.prototype.removeTable = function (t) {
     this.tables.splice(idx, 1);
 }
 
-SQL.Designer.prototype.addRelation = function (row1, row2) {
+SQL.Designer.prototype.addRelation = function(row1, row2) {
     var r = new SQL.Relation(this, row1, row2);
     this.relations.push(r);
     return r;
 }
 
-SQL.Designer.prototype.removeRelation = function (r) {
+SQL.Designer.prototype.removeRelation = function(r) {
     var idx = this.relations.indexOf(r);
     if (idx == -1) {
         return;
@@ -176,7 +176,7 @@ SQL.Designer.prototype.removeRelation = function (r) {
     this.relations.splice(idx, 1);
 }
 
-SQL.Designer.prototype.getCookie = function () {
+SQL.Designer.prototype.getCookie = function() {
     var c = document.cookie;
     var obj = {};
     var parts = c.split(";");
@@ -190,7 +190,7 @@ SQL.Designer.prototype.getCookie = function () {
     return obj;
 }
 
-SQL.Designer.prototype.setCookie = function (obj) {
+SQL.Designer.prototype.setCookie = function(obj) {
     var arr = [];
     for (var p in obj) {
         arr.push(p + ":'" + obj[p] + "'");
@@ -199,7 +199,7 @@ SQL.Designer.prototype.setCookie = function (obj) {
     document.cookie = "wwwsqldesigner=" + str + "; path=/";
 }
 
-SQL.Designer.prototype.getOption = function (name) {
+SQL.Designer.prototype.getOption = function(name) {
     var c = this.getCookie();
     if (name in c) {
         return c[name];
@@ -231,13 +231,41 @@ SQL.Designer.prototype.getOption = function (name) {
     }
 }
 
-SQL.Designer.prototype.setOption = function (name, value) {
+SQL.Designer.prototype.getDefaultOption = function(name) {
+    /* defaults */
+    switch (name) {
+        case "locale":
+            return CONFIG.DEFAULT_LOCALE;
+        case "db":
+            return CONFIG.DEFAULT_DB;
+        case "staticpath":
+            return CONFIG.STATIC_PATH || "";
+        case "xhrpath":
+            return CONFIG.XHR_PATH || "";
+        case "snap":
+            return 0;
+        case "showsize":
+            return 0;
+        case "showtype":
+            return 0;
+        case "pattern":
+            return "%R_%T";
+        case "hide":
+            return false;
+        case "vector":
+            return true;
+        default:
+            return null;
+    }
+}
+
+SQL.Designer.prototype.setOption = function(name, value) {
     var obj = this.getCookie();
     obj[name] = value;
     this.setCookie(obj);
 }
 
-SQL.Designer.prototype.raise = function (table) { /* raise a table */
+SQL.Designer.prototype.raise = function(table) { /* raise a table */
     var old = table.getZ();
     var max = this.getMaxZ();
     table.setZ(max);
@@ -254,21 +282,21 @@ SQL.Designer.prototype.raise = function (table) { /* raise a table */
     m.parentNode.appendChild(m);
 }
 
-SQL.Designer.prototype.clearTables = function () {
+SQL.Designer.prototype.clearTables = function() {
     while (this.tables.length) {
         this.removeTable(this.tables[0]);
     }
     this.setTitle(false);
 }
 
-SQL.Designer.prototype.alignTables = function () {
+SQL.Designer.prototype.alignTables = function() {
     var win = OZ.DOM.win();
     var avail = win[0];
     var x = 10;
     var y = 10;
     var max = 0;
 
-    this.tables.sort(function (a, b) {
+    this.tables.sort(function(a, b) {
         return b.getRelations().length - a.getRelations().length;
     });
 
@@ -291,7 +319,7 @@ SQL.Designer.prototype.alignTables = function () {
     this.sync();
 }
 
-SQL.Designer.prototype.findNamedTable = function (name) { /* find row specified as table(row) */
+SQL.Designer.prototype.findNamedTable = function(name) { /* find row specified as table(row) */
     for (var i = 0; i < this.tables.length; i++) {
         if (this.tables[i].getTitle() == name) {
             return this.tables[i];
@@ -299,7 +327,7 @@ SQL.Designer.prototype.findNamedTable = function (name) { /* find row specified 
     }
 };
 
-SQL.Designer.prototype.toXML = function () {
+SQL.Designer.prototype.toXML = function() {
     var xml = '<?xml version="1.0" encoding="utf-8" ?>\n';
     xml += '<!-- SQL XML created by WWW SQL Designer, https://github.com/ondras/wwwsqldesigner/ -->\n';
     xml += '<!-- Active URL: ' + location.href + ' -->\n';
@@ -322,7 +350,7 @@ SQL.Designer.prototype.toXML = function () {
     return xml;
 }
 
-SQL.Designer.prototype.fromXML = function (node) {
+SQL.Designer.prototype.fromXML = function(node) {
     this.clearTables();
     var types = node.getElementsByTagName("datatypes");
     if (types.length) {
@@ -372,11 +400,11 @@ SQL.Designer.prototype.fromXML = function (node) {
     this.sync();
 }
 
-SQL.Designer.prototype.setTitle = function (t) {
+SQL.Designer.prototype.setTitle = function(t) {
     document.title = this.title + (t ? " - " + t : "");
 }
 
-SQL.Designer.prototype.removeSelection = function () {
+SQL.Designer.prototype.removeSelection = function() {
     var sel = (window.getSelection ? window.getSelection() : document.selection);
     if (!sel) {
         return;
@@ -389,7 +417,7 @@ SQL.Designer.prototype.removeSelection = function () {
     }
 }
 
-SQL.Designer.prototype.getTypeIndex = function (label) {
+SQL.Designer.prototype.getTypeIndex = function(label) {
     if (!this.typeIndex) {
         this.typeIndex = {};
         var types = window.DATATYPES.getElementsByTagName("type");
@@ -403,7 +431,7 @@ SQL.Designer.prototype.getTypeIndex = function (label) {
     return this.typeIndex[label];
 }
 
-SQL.Designer.prototype.getFKTypeFor = function (typeIndex) {
+SQL.Designer.prototype.getFKTypeFor = function(typeIndex) {
     if (!this.fkTypeFor) {
         this.fkTypeFor = {};
         var types = window.DATATYPES.getElementsByTagName("type");
@@ -418,17 +446,17 @@ SQL.Designer.prototype.getFKTypeFor = function (typeIndex) {
     return this.fkTypeFor[typeIndex];
 };
 
-SQL.Designer.prototype.zoom = function (level) {
-//    this.fontSize += level;
-//    this.bgSize += level;
+SQL.Designer.prototype.zoom = function(level) {
+    //    this.fontSize += level;
+    //    this.bgSize += level;
     this.zScale += level;
-//    document.body.style.fontSize = this.fontSize + "px";
-    OZ.$('area').style.transform = "scale(" + this.zScale + "," + this.zScale +")";
+    //    document.body.style.fontSize = this.fontSize + "px";
+    OZ.$('area').style.transform = "scale(" + this.zScale + "," + this.zScale + ")";
 };
 
-SQL.Designer.prototype.press = function (e) {
+SQL.Designer.prototype.press = function(e) {
     var target = OZ.Event.target(e).nodeName.toLowerCase();
-    
+
     if (target == "textarea" || target == "input") {
         return;
     } /* not when in form field */
