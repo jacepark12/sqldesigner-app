@@ -3,7 +3,8 @@
 SQL.Designer = function() {
     SQL.Designer = this;
 
-    this.options = {};
+    //set options object first?!
+    this.options = new SQL.Options(this);
 
     this.tables = [];
     this.relations = [];
@@ -49,6 +50,8 @@ SQL.Designer = function() {
 };
 SQL.Designer.prototype = Object.create(SQL.Visual.prototype);
 
+SQL.Designer.prototype.optionsValue = {};
+
 /* update area size */
 SQL.Designer.prototype.sync = function() {
     var w = this.minSize[0];
@@ -73,6 +76,7 @@ SQL.Designer.prototype.requestLanguage = function() { /* get locale file */
     var bp = this.getOption("staticpath");
     var lang = this.getOption("locale")
     var url = bp + "locale/" + lang + ".xml";
+    console.log('requestLanauge url : ', url);
     OZ.Request(url, this.languageResponse.bind(this), { method: "get", xml: true });
 };
 
@@ -109,13 +113,14 @@ SQL.Designer.prototype.dbResponse = function(xmlDoc) {
 }
 
 SQL.Designer.prototype.init2 = function() { /* secondary init, after locale & datatypes were retrieved */
+    console.log('init2')
     this.map = new SQL.Map(this);
     this.rubberband = new SQL.Rubberband(this);
     this.tableManager = new SQL.TableManager(this);
     this.rowManager = new SQL.RowManager(this);
     this.keyManager = new SQL.KeyManager(this);
     this.io = new SQL.IO(this);
-    this.options = new SQL.Options(this);
+    //this.options = new SQL.Options(this);
     this.window = new SQL.Window(this);
 
     this.sync();
@@ -201,18 +206,23 @@ SQL.Designer.prototype.setCookie = function(obj) {
     document.cookie = "wwwsqldesigner=" + str + "; path=/";
 }
 
-SQL.Designer.prototype.getOption = function(name) {
-    var c = this.getCookie();
-    if (name in c) {
-        return c[name];
+SQL.Designer.prototype.getOption = function(key) {
+
+    console.log('getOption function : ', key);
+    console.log('CONFIG :', CONFIG)
+    console.log(this);
+    if (key in this.optionsValue) {
+        console.log('in optionsValue : ', this.optionsValue[key]);
+        return this.optionsValue[key];
     }
     /* defaults */
-    switch (name) {
+    switch (key) {
         case "locale":
             return CONFIG.DEFAULT_LOCALE;
         case "db":
             return CONFIG.DEFAULT_DB;
         case "staticpath":
+            console.log('CONFIG.STATIC_PATH :', CONFIG.STATIC_PATH);
             return CONFIG.STATIC_PATH || "";
         case "xhrpath":
             return CONFIG.XHR_PATH || "";
@@ -231,6 +241,7 @@ SQL.Designer.prototype.getOption = function(name) {
         default:
             return null;
     }
+
 }
 
 SQL.Designer.prototype.getDefaultOption = function(name) {
@@ -265,7 +276,7 @@ SQL.Designer.prototype.setOption = function(key, value) {
     // var obj = this.getCookie();
     // obj[name] = value;
     // this.setCookie(obj);
-    this.options[key] = value;
+    this.optionsValue[key] = value;
 }
 
 SQL.Designer.prototype.raise = function(table) { /* raise a table */

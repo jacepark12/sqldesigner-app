@@ -29,7 +29,7 @@ re-designed SQL Desginer was create by [Lt-Mayonesa]
 $ npm install
 ```
 
-### Run
+### Run from source
 
 ```
 $ npm start

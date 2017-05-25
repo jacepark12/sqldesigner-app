@@ -1,7 +1,7 @@
 /* --------------------- table row ( = db column) ------------ */
 /* global SQL, OZ */
 
-SQL.Row = function (owner, title, data) {
+SQL.Row = function(owner, title, data) {
     this.owner = owner;
     this.relations = [];
     this.keys = [];
@@ -24,21 +24,19 @@ SQL.Row = function (owner, title, data) {
 }
 SQL.Row.prototype = Object.create(SQL.Visual.prototype);
 
-SQL.Row.prototype._build = function () {
+SQL.Row.prototype._build = function() {
     this.dom.container = OZ.DOM.elm("tbody");
 
     this.dom.content = OZ.DOM.elm("tr");
-    this.dom.selected = OZ.DOM.elm("div", {className: "selected", innerHTML: "&raquo;&nbsp;"});
-    this.dom.title = OZ.DOM.elm("div", {className: "title"});
+    this.dom.selected = OZ.DOM.elm("div", { className: "selected", innerHTML: "&raquo;&nbsp;" });
+    this.dom.title = OZ.DOM.elm("div", { className: "title" });
     var td1 = OZ.DOM.elm("td");
-    var td2 = OZ.DOM.elm("td", {className: "typehint"});
+    var td2 = OZ.DOM.elm("td", { className: "typehint" });
     this.dom.typehint = td2;
 
     OZ.DOM.append(
-            [this.dom.container, this.dom.content],
-            [this.dom.content, td1, td2],
-            [td1, this.dom.selected, this.dom.title]
-            );
+        [this.dom.container, this.dom.content], [this.dom.content, td1, td2], [td1, this.dom.selected, this.dom.title]
+    );
 
     this.enter = this.enter.bind(this);
     this.changeComment = this.changeComment.bind(this);
@@ -47,7 +45,7 @@ SQL.Row.prototype._build = function () {
     OZ.Event.add(this.dom.container, "dblclick", this.dblclick.bind(this));
 }
 
-SQL.Row.prototype.select = function () {
+SQL.Row.prototype.select = function() {
     if (this.selected) {
         return;
     }
@@ -55,7 +53,7 @@ SQL.Row.prototype.select = function () {
     this.redraw();
 };
 
-SQL.Row.prototype.deselect = function () {
+SQL.Row.prototype.deselect = function() {
     if (!this.selected) {
         return;
     }
@@ -64,7 +62,7 @@ SQL.Row.prototype.deselect = function () {
     this.collapse();
 };
 
-SQL.Row.prototype.setTitle = function (t) {
+SQL.Row.prototype.setTitle = function(t) {
     var old = this.getTitle();
     for (var i = 0; i < this.relations.length; i++) {
         var r = this.relations[i];
@@ -80,18 +78,18 @@ SQL.Row.prototype.setTitle = function (t) {
     SQL.Visual.prototype.setTitle.apply(this, [t]);
 }
 
-SQL.Row.prototype.click = function (e) { /* clicked on row */
+SQL.Row.prototype.click = function(e) { /* clicked on row */
     SQL.publish("rowclick", this);
     this.owner.owner.rowManager.select(this);
 }
 
-SQL.Row.prototype.dblclick = function (e) { /* dblclicked on row */
+SQL.Row.prototype.dblclick = function(e) { /* dblclicked on row */
     OZ.Event.prevent(e);
     OZ.Event.stop(e);
     this.expand();
 }
 
-SQL.Row.prototype.update = function (data) { /* update subset of row data */
+SQL.Row.prototype.update = function(data) { /* update subset of row data */
     var des = SQL.Designer;
     if (data.nll && data.def && data.def.match(/^null$/i)) {
         data.def = null;
@@ -108,13 +106,13 @@ SQL.Row.prototype.update = function (data) { /* update subset of row data */
     for (var i = 0; i < this.relations.length; i++) {
         var r = this.relations[i];
         if (r.row1 == this) {
-            r.row2.update({type: des.getFKTypeFor(this.data.type), size: this.data.size});
+            r.row2.update({ type: des.getFKTypeFor(this.data.type), size: this.data.size });
         }
     }
     this.redraw();
 };
 
-SQL.Row.prototype.up = function () { /* shift up */
+SQL.Row.prototype.up = function() { /* shift up */
     var r = this.owner.rows;
     var idx = r.indexOf(this);
     if (!idx) {
@@ -126,7 +124,7 @@ SQL.Row.prototype.up = function () { /* shift up */
     this.redraw();
 }
 
-SQL.Row.prototype.down = function () { /* shift down */
+SQL.Row.prototype.down = function() { /* shift down */
     var r = this.owner.rows;
     var idx = r.indexOf(this);
     if (idx + 1 == this.owner.rows.length) {
@@ -138,7 +136,7 @@ SQL.Row.prototype.down = function () { /* shift down */
     this.redraw();
 }
 
-SQL.Row.prototype.buildEdit = function () {
+SQL.Row.prototype.buildEdit = function() {
     OZ.DOM.clear(this.dom.container);
     OZ.DOM.addClass(this.dom.container, 'selected');
     var elms = [];
@@ -166,11 +164,11 @@ SQL.Row.prototype.buildEdit = function () {
     this.dom.nll.type = "checkbox";
     elms.push(["null", this.dom.nll]);
 
-    this.dom.comment = OZ.DOM.elm("span", {className: "comment"});
+    this.dom.comment = OZ.DOM.elm("span", { className: "comment" });
     this.dom.comment.innerHTML = "";
     this.dom.comment.appendChild(document.createTextNode(this.data.comment));
 
-    this.dom.commentbtn = OZ.DOM.elm("input", {className: "mui-btn mui-btn--raised"});
+    this.dom.commentbtn = OZ.DOM.elm("input", { className: "mui-btn mui-btn--raised" });
     this.dom.commentbtn.type = "button";
     this.dom.commentbtn.value = _("comment");
 
@@ -183,19 +181,16 @@ SQL.Row.prototype.buildEdit = function () {
         var td2 = OZ.DOM.elm("td");
         var div;
         if (row[0].match(/type/))
-            div = OZ.DOM.elm("div", {className: "mui-select"});
+            div = OZ.DOM.elm("div", { className: "mui-select" });
         else if (row[0].match(/ai|null/))
-            div = OZ.DOM.elm("div", {className: "mui-checkbox"});
+            div = OZ.DOM.elm("div", { className: "mui-checkbox" });
         else
-            div = OZ.DOM.elm("div", {className: "mui-textfield"});
+            div = OZ.DOM.elm("div", { className: "mui-textfield" });
 
         var l = OZ.DOM.text(_(row[0]) + ": ");
         OZ.DOM.append(
-                [tr, td1, td2],
-                [td1, l],
-                [td2, div],
-                [div, row[1]]
-                );
+            [tr, td1, td2], [td1, l], [td2, div], [div, row[1]]
+        );
         this.dom.container.appendChild(tr);
     }
 
@@ -206,18 +201,16 @@ SQL.Row.prototype.buildEdit = function () {
     OZ.Event.add(this.dom.type, "change", this.selectChange.bind(this));
 
     OZ.DOM.append(
-            [tr, td1, td2],
-            [td1, this.dom.comment],
-            [td2, this.dom.commentbtn]
-            );
+        [tr, td1, td2], [td1, this.dom.comment], [td2, this.dom.commentbtn]
+    );
     this.dom.container.appendChild(tr);
 };
 
-SQL.Row.prototype.selectChange = function (e) {
+SQL.Row.prototype.selectChange = function(e) {
     this.dom.container.style.borderColor = this.getColor(e.target.value);
 };
 
-SQL.Row.prototype.changeComment = function (e) {
+SQL.Row.prototype.changeComment = function(e) {
     var c = prompt(_("commenttext"), this.data.comment);
     if (c === null) {
         return;
@@ -227,7 +220,7 @@ SQL.Row.prototype.changeComment = function (e) {
     this.dom.comment.appendChild(document.createTextNode(this.data.comment));
 }
 
-SQL.Row.prototype.expand = function () {
+SQL.Row.prototype.expand = function() {
     if (this.expanded) {
         return;
     }
@@ -239,7 +232,7 @@ SQL.Row.prototype.expand = function () {
     this.dom.name.select();
 };
 
-SQL.Row.prototype.collapse = function () {
+SQL.Row.prototype.collapse = function() {
     if (!this.expanded) {
         return;
     }
@@ -262,7 +255,7 @@ SQL.Row.prototype.collapse = function () {
     this.owner.owner.rowManager.setEditing(false);
 };
 
-SQL.Row.prototype.load = function () { /* put data to expanded form */
+SQL.Row.prototype.load = function() { /* put data to expanded form */
     this.dom.name.value = this.getTitle();
     var def = this.data.def;
     if (def === null) {
@@ -275,7 +268,7 @@ SQL.Row.prototype.load = function () { /* put data to expanded form */
     this.dom.ai.checked = this.data.ai;
 }
 
-SQL.Row.prototype.redraw = function () {
+SQL.Row.prototype.redraw = function() {
     var color = this.getColor();
     this.dom.container.style.borderColor = color;
     OZ.DOM.removeClass(this.dom.title, "primary");
@@ -295,6 +288,9 @@ SQL.Row.prototype.redraw = function () {
         typehint.push(elm.getAttribute("sql"));
     }
 
+    console.log("getoption showsize : ", this.owner.owner.getOption("showsize"));
+    console.log("getoption showtype : ", this.owner.owner.getOption("showtype"));
+
     if (this.owner.owner.getOption("showsize") && this.data.size) {
         typehint.push("(" + this.data.size + ")");
     }
@@ -304,11 +300,11 @@ SQL.Row.prototype.redraw = function () {
     this.owner.owner.rowManager.redraw();
 }
 
-SQL.Row.prototype.addRelation = function (r) {
+SQL.Row.prototype.addRelation = function(r) {
     this.relations.push(r);
 }
 
-SQL.Row.prototype.removeRelation = function (r) {
+SQL.Row.prototype.removeRelation = function(r) {
     var idx = this.relations.indexOf(r);
     if (idx == -1) {
         return;
@@ -316,12 +312,12 @@ SQL.Row.prototype.removeRelation = function (r) {
     this.relations.splice(idx, 1);
 };
 
-SQL.Row.prototype.addKey = function (k) {
+SQL.Row.prototype.addKey = function(k) {
     this.keys.push(k);
     this.redraw();
 };
 
-SQL.Row.prototype.removeKey = function (k) {
+SQL.Row.prototype.removeKey = function(k) {
     var idx = this.keys.indexOf(k);
     if (idx == -1) {
         return;
@@ -330,13 +326,13 @@ SQL.Row.prototype.removeKey = function (k) {
     this.redraw();
 };
 
-SQL.Row.prototype.getDataType = function (t) {
+SQL.Row.prototype.getDataType = function(t) {
     var type = t || this.data.type;
     var elm = DATATYPES.getElementsByTagName("type")[type];
     return elm;
 };
 
-SQL.Row.prototype.getColor = function (t) {
+SQL.Row.prototype.getColor = function(t) {
     var elm = this.getDataType(t);
     var g = this.getDataType(t).parentNode;
     var cElm = CONFIG.CUSTOM_TYPE_COLORS[elm.getAttribute('label').toLowerCase()];
@@ -345,7 +341,7 @@ SQL.Row.prototype.getColor = function (t) {
     return cElm || cG || elm.getAttribute("color") || g.getAttribute("color") || "#fff";
 };
 
-SQL.Row.prototype.buildTypeSelect = function (id) { /* build selectbox with avail datatypes */
+SQL.Row.prototype.buildTypeSelect = function(id) { /* build selectbox with avail datatypes */
     var s = OZ.DOM.elm("select");
     var gs = DATATYPES.getElementsByTagName("group");
     for (var i = 0; i < gs.length; i++) {
@@ -372,7 +368,7 @@ SQL.Row.prototype.buildTypeSelect = function (id) { /* build selectbox with avai
     return s;
 }
 
-SQL.Row.prototype.destroy = function () {
+SQL.Row.prototype.destroy = function() {
     SQL.Visual.prototype.destroy.apply(this);
     while (this.relations.length) {
         this.owner.owner.removeRelation(this.relations[0]);
@@ -382,7 +378,7 @@ SQL.Row.prototype.destroy = function () {
     }
 }
 
-SQL.Row.prototype.toXML = function () {
+SQL.Row.prototype.toXML = function() {
     var xml = "";
 
     var t = this.getTitle().replace(/"/g, "&quot;");
@@ -424,10 +420,10 @@ SQL.Row.prototype.toXML = function () {
     return xml;
 }
 
-SQL.Row.prototype.fromXML = function (node) {
+SQL.Row.prototype.fromXML = function(node) {
     var name = node.getAttribute("name");
 
-    var obj = {type: 0, size: ""};
+    var obj = { type: 0, size: "" };
     obj.nll = (node.getAttribute("null") == "1");
     obj.ai = (node.getAttribute("autoincrement") == "1");
 
@@ -473,7 +469,7 @@ SQL.Row.prototype.fromXML = function (node) {
     this.setTitle(name);
 }
 
-SQL.Row.prototype.isPrimary = function () {
+SQL.Row.prototype.isPrimary = function() {
     for (var i = 0; i < this.keys.length; i++) {
         var k = this.keys[i];
         if (k.getType() == "PRIMARY") {
@@ -483,7 +479,7 @@ SQL.Row.prototype.isPrimary = function () {
     return false;
 }
 
-SQL.Row.prototype.isUnique = function () {
+SQL.Row.prototype.isUnique = function() {
     for (var i = 0; i < this.keys.length; i++) {
         var k = this.keys[i];
         var t = k.getType();
@@ -494,11 +490,11 @@ SQL.Row.prototype.isUnique = function () {
     return false;
 }
 
-SQL.Row.prototype.isKey = function () {
+SQL.Row.prototype.isKey = function() {
     return this.keys.length > 0;
 }
 
-SQL.Row.prototype.enter = function (e) {
+SQL.Row.prototype.enter = function(e) {
     if (e.keyCode == 13) {
         this.collapse();
     }
