@@ -68,11 +68,6 @@ SQL.Options.prototype.build = function() {
         this.owner.setOption("db", this.getElectronSetting("db"));
         this.owner.setOption("snap", this.getElectronSetting("snap"));
         this.owner.setOption("pattern", this.getElectronSetting("pattern"));
-        //this.owner.setOption("hide", "1");
-        // this.owner.setOption("hide", this.getElectronSetting("hide") ? "1" : "");
-        // this.owner.setOption("vector", this.getElectronSetting("vector") ? "1" : "");
-        // this.owner.setOption("showsize", this.getElectronSetting("showsize") ? "1" : "");
-        // this.owner.setOption("showtype", this.getElectronSetting("showtype") ? "1" : "");
         this.owner.setOption("hide", this.getElectronSetting("hide"));
         this.owner.setOption("vector", this.getElectronSetting("vector"));
         this.owner.setOption("showsize", this.getElectronSetting("showsize"));
@@ -94,7 +89,7 @@ SQL.Options.prototype.build = function() {
     }
 };
 
-//여기서 설정을 저장하고
+//save setting here
 SQL.Options.prototype.save = function() {
     console.log('this is config save function');
 
@@ -123,22 +118,13 @@ SQL.Options.prototype.save = function() {
 
 }
 
-//여기서 그 설정을 적용한다.
+//set settings value
 SQL.Options.prototype.click = function() {
     this.owner.window.open(_("options"), this.dom.container, this.save);
-    // this.dom.optionsnap.value = this.owner.getOption("snap");
-    // this.dom.optionpattern.value = this.owner.getOption("pattern");
-    // this.dom.optionhide.checked = this.owner.getOption("hide");
-    // this.dom.optionvector.checked = this.owner.getOption("vector");
-    // this.dom.optionshowsize.checked = this.owner.getOption("showsize");
-    // this.dom.optionshowtype.checked = this.owner.getOption("showtype");
 
     this.dom.optionsnap.value = this.getElectronSetting("snap");
     this.dom.optionpattern.value = this.getElectronSetting("pattern");
     this.dom.optionhide.checked = this.getElectronSetting("hide");
-    // this.dom.optionvector.checked = this.getElectronSetting("vector");
-    // this.dom.optionshowsize.checked = this.getElectronSetting("showsize");
-    // this.dom.optionshowtype.checked = this.getElectronSetting("showtype");
     this.dom.optionhide.checked = (this.getElectronSetting("hide") ? "1" : "");
     this.dom.optionvector.checked = (this.getElectronSetting("vector") ? "1" : "");
     this.dom.optionshowsize.checked = (this.getElectronSetting("showsize") ? "1" : "");

@@ -3,7 +3,7 @@
 SQL.Designer = function() {
     SQL.Designer = this;
 
-    //set options object first?!
+    //set options object first
     this.options = new SQL.Options(this);
 
     this.tables = [];
@@ -16,8 +16,8 @@ SQL.Designer = function() {
     this.snackbar = new SQL.Snackbar(this, OZ.$("snackbar"));
 
     var style = window.getComputedStyle(document.body, null).getPropertyValue('font-size');
-    //    this.fontSize = parseFloat(style);
-    //    this.bgSize = 100;
+    this.fontSize = parseFloat(style);
+    this.bgSize = 100;
     this.zScale = 1;
 
     OZ.Event.add(document, "keydown", this.press.bind(this));
