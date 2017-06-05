@@ -1,5 +1,5 @@
 var CONFIG = {
-    AVAILABLE_DBS: ["mysql", "sqlite", "web2py", "mssql", "postgresql", "oracle", "sqlalchemy", "vfp9", "cubrid"],
+    AVAILABLE_DBS: ["mysql", "sqlite", "web2py", "mssql", "postgresql", "oracle", "sqlalchemy", "vfp9", "cubrid", "jpa"],
     DEFAULT_DB: "mysql",
     AVAILABLE_LOCALES: ["ar", "cs", "de", "el", "en", "eo", "es", "fr", "hu", "it", "ja", "nl", "pl", "pt_BR", "ro", "ru", "sv", "zh"],
     DEFAULT_LOCALE: "en",
@@ -37,17 +37,17 @@ var CONFIG = {
             key: 'F4',
             code: false
         },
-        addtable: {key: 'a', code: 65},
-        edittable: {key: 'e', code: 69},
-        editrow: {key: 'e', code: 69},
-        addrow: {key: 'f', code: 70},
-        removetable: {key: 'DELETE', code: 46},
-        removerow: {key: 'DELETE', code: 46},
-        uprow: {key: 'UP', code: 38},
-        downrow: {key: 'DOWN', code: 40},
-        foreigncreate: {key: 'x', code: 88},
-        foreignconnect: {key: 'c', code: 67},
-        zoomin: {key: '+', code: false},
-        zoomout: {key: '-', code: false}
+        addtable: { key: 'a', code: 65 },
+        edittable: { key: 'e', code: 69 },
+        editrow: { key: 'e', code: 69 },
+        addrow: { key: 'f', code: 70 },
+        removetable: { key: 'DELETE', code: 46 },
+        removerow: { key: 'DELETE', code: 46 },
+        uprow: { key: 'UP', code: 38 },
+        downrow: { key: 'DOWN', code: 40 },
+        foreigncreate: { key: 'x', code: 88 },
+        foreignconnect: { key: 'c', code: 67 },
+        zoomin: { key: '+', code: false },
+        zoomout: { key: '-', code: false }
     }
 };
