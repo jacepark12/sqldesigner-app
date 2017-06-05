@@ -1,7 +1,7 @@
 /* --------------------- db table ------------ */
 /* global OZ, SQL */
 
-SQL.Table = function (owner, name, x, y, z) {
+SQL.Table = function(owner, name, x, y, z) {
     this.owner = owner;
     this.rows = [];
     this.keys = [];
@@ -21,21 +21,18 @@ SQL.Table = function (owner, name, x, y, z) {
 }
 SQL.Table.prototype = Object.create(SQL.Visual.prototype);
 
-SQL.Table.prototype._build = function () {
-    this.dom.container = OZ.DOM.elm("div", {className: "table mui-panel"});
+SQL.Table.prototype._build = function() {
+    this.dom.container = OZ.DOM.elm("div", { className: "table mui-panel" });
     this.dom.content = OZ.DOM.elm("table");
     var thead = OZ.DOM.elm("thead");
     var tr = OZ.DOM.elm("tr");
-    this.dom.title = OZ.DOM.elm("td", {className: "title", colSpan: 2});
+    this.dom.title = OZ.DOM.elm("td", { className: "title", colSpan: 2 });
 
     OZ.DOM.append(
-            [this.dom.container, this.dom.content],
-            [this.dom.content, thead],
-            [thead, tr],
-            [tr, this.dom.title]
-            );
+        [this.dom.container, this.dom.content], [this.dom.content, thead], [thead, tr], [tr, this.dom.title]
+    );
 
-    this.dom.mini = OZ.DOM.elm("div", {className: "mini"});
+    this.dom.mini = OZ.DOM.elm("div", { className: "mini" });
     this.owner.map.dom.container.appendChild(this.dom.mini);
 
     this._ec.push(OZ.Event.add(this.dom.container, "click", this.click.bind(this)));
@@ -45,7 +42,7 @@ SQL.Table.prototype._build = function () {
     this._ec.push(OZ.Event.add(this.dom.container, "touchmove", OZ.Event.prevent));
 };
 
-SQL.Table.prototype.setTitle = function (t) {
+SQL.Table.prototype.setTitle = function(t) {
     var old = this.getTitle();
     for (var i = 0; i < this.rows.length; i++) {
         var row = this.rows[i];
@@ -63,7 +60,7 @@ SQL.Table.prototype.setTitle = function (t) {
     SQL.Visual.prototype.setTitle.apply(this, [t]);
 }
 
-SQL.Table.prototype.getRelations = function () {
+SQL.Table.prototype.getRelations = function() {
     var arr = [];
     for (var i = 0; i < this.rows.length; i++) {
         var row = this.rows[i];
@@ -77,21 +74,21 @@ SQL.Table.prototype.getRelations = function () {
     return arr;
 }
 
-SQL.Table.prototype.showRelations = function () {
+SQL.Table.prototype.showRelations = function() {
     var rs = this.getRelations();
     for (var i = 0; i < rs.length; i++) {
         rs[i].show();
     }
 }
 
-SQL.Table.prototype.hideRelations = function () {
+SQL.Table.prototype.hideRelations = function() {
     var rs = this.getRelations();
     for (var i = 0; i < rs.length; i++) {
         rs[i].hide();
     }
 }
 
-SQL.Table.prototype.click = function (e) {
+SQL.Table.prototype.click = function(e) {
     OZ.Event.stop(e);
     var t = OZ.Event.target(e);
     this.owner.tableManager.select(this, e.shiftKey);
@@ -104,14 +101,14 @@ SQL.Table.prototype.click = function (e) {
     this.owner.rowManager.select(false);
 };
 
-SQL.Table.prototype.dblclick = function (e) {
+SQL.Table.prototype.dblclick = function(e) {
     var t = OZ.Event.target(e);
     if (t == this.dom.title) {
         this.owner.tableManager.edit();
     }
 }
 
-SQL.Table.prototype.select = function () {
+SQL.Table.prototype.select = function() {
     if (this.selected) {
         return;
     }
@@ -121,7 +118,7 @@ SQL.Table.prototype.select = function () {
     this.redraw();
 }
 
-SQL.Table.prototype.deselect = function () {
+SQL.Table.prototype.deselect = function() {
     if (!this.selected) {
         return;
     }
@@ -131,7 +128,7 @@ SQL.Table.prototype.deselect = function () {
     this.redraw();
 }
 
-SQL.Table.prototype.addRow = function (title, data) {
+SQL.Table.prototype.addRow = function(title, data) {
     var r = new SQL.Row(this, title, data);
     this.rows.push(r);
     this.dom.content.appendChild(r.dom.container);
@@ -139,7 +136,7 @@ SQL.Table.prototype.addRow = function (title, data) {
     return r;
 }
 
-SQL.Table.prototype.removeRow = function (r) {
+SQL.Table.prototype.removeRow = function(r) {
     var idx = this.rows.indexOf(r);
     if (idx == -1) {
         return;
@@ -149,13 +146,13 @@ SQL.Table.prototype.removeRow = function (r) {
     this.redraw();
 }
 
-SQL.Table.prototype.addKey = function (name) {
+SQL.Table.prototype.addKey = function(name) {
     var k = new SQL.Key(this, name);
     this.keys.push(k);
     return k;
 }
 
-SQL.Table.prototype.removeKey = function (k) {
+SQL.Table.prototype.removeKey = function(k) {
     var idx = this.keys.indexOf(k);
     if (idx == -1) {
         return;
@@ -164,7 +161,7 @@ SQL.Table.prototype.removeKey = function (k) {
     this.keys.splice(idx, 1);
 }
 
-SQL.Table.prototype.redraw = function () {
+SQL.Table.prototype.redraw = function() {
     var x = this.x;
     var y = this.y;
     if (this.selected) {
@@ -196,7 +193,7 @@ SQL.Table.prototype.redraw = function () {
     }
 }
 
-SQL.Table.prototype.moveBy = function (dx, dy) {
+SQL.Table.prototype.moveBy = function(dx, dy) {
     this.x += dx;
     this.y += dy;
 
@@ -204,7 +201,7 @@ SQL.Table.prototype.moveBy = function (dx, dy) {
     this.redraw();
 }
 
-SQL.Table.prototype.moveTo = function (x, y) {
+SQL.Table.prototype.moveTo = function(x, y) {
     this.x = x;
     this.y = y;
 
@@ -212,7 +209,7 @@ SQL.Table.prototype.moveTo = function (x, y) {
     this.redraw();
 }
 
-SQL.Table.prototype.snap = function () {
+SQL.Table.prototype.snap = function() {
     var snap = parseInt(SQL.Designer.getOption("snap"));
     if (snap) {
         this.x = Math.round(this.x / snap) * snap;
@@ -220,7 +217,7 @@ SQL.Table.prototype.snap = function () {
     }
 }
 
-SQL.Table.prototype.down = function (e) { /* mousedown - start drag */
+SQL.Table.prototype.down = function(e) { /* mousedown - start drag */
     OZ.Event.stop(e);
     var t = OZ.Event.target(e);
     if (t != this.dom.title) {
@@ -264,7 +261,7 @@ SQL.Table.prototype.down = function (e) { /* mousedown - start drag */
     this.documentUp = OZ.Event.add(document, upEvent, this.up.bind(this));
 }
 
-SQL.Table.prototype.toXML = function () {
+SQL.Table.prototype.toXML = function() {
     var t = this.getTitle().replace(/"/g, "&quot;");
     var xml = "";
     xml += '<table x="' + this.x + '" y="' + this.y + '" name="' + t + '">\n';
@@ -282,7 +279,7 @@ SQL.Table.prototype.toXML = function () {
     return xml;
 }
 
-SQL.Table.prototype.fromXML = function (node) {
+SQL.Table.prototype.fromXML = function(node) {
     var name = node.getAttribute("name");
     this.setTitle(name);
     var x = parseInt(node.getAttribute("x")) || 0;
@@ -308,16 +305,16 @@ SQL.Table.prototype.fromXML = function (node) {
     }
 }
 
-SQL.Table.prototype.getZ = function () {
+SQL.Table.prototype.getZ = function() {
     return this.zIndex;
 }
 
-SQL.Table.prototype.setZ = function (z) {
+SQL.Table.prototype.setZ = function(z) {
     this.zIndex = z;
     this.dom.container.style.zIndex = z;
 }
 
-SQL.Table.prototype.findNamedRow = function (n) { /* return row with a given name */
+SQL.Table.prototype.findNamedRow = function(n) { /* return row with a given name */
     for (var i = 0; i < this.rows.length; i++) {
         if (this.rows[i].getTitle() == n) {
             return this.rows[i];
@@ -326,16 +323,16 @@ SQL.Table.prototype.findNamedRow = function (n) { /* return row with a given nam
     return false;
 }
 
-SQL.Table.prototype.setComment = function (c) {
+SQL.Table.prototype.setComment = function(c) {
     this.data.comment = c;
     this.dom.title.title = this.data.comment;
 }
 
-SQL.Table.prototype.getComment = function () {
+SQL.Table.prototype.getComment = function() {
     return this.data.comment;
 }
 
-SQL.Table.prototype.move = function (e) { /* mousemove */
+SQL.Table.prototype.move = function(e) { /* mousemove */
     var t = SQL.Table;
     SQL.Designer.removeSelection();
     if (e.type == "touchmove") {
@@ -356,7 +353,7 @@ SQL.Table.prototype.move = function (e) { /* mousemove */
     }
 }
 
-SQL.Table.prototype.up = function (e) {
+SQL.Table.prototype.up = function(e) {
     var t = SQL.Table;
     var d = SQL.Designer;
     if (d.getOption("hide")) {
@@ -371,7 +368,7 @@ SQL.Table.prototype.up = function (e) {
     this.owner.sync();
 }
 
-SQL.Table.prototype.destroy = function () {
+SQL.Table.prototype.destroy = function() {
     SQL.Visual.prototype.destroy.apply(this);
     this.dom.mini.parentNode.removeChild(this.dom.mini);
     while (this.rows.length) {
