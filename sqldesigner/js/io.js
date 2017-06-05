@@ -195,11 +195,6 @@ SQL.IO.prototype.clientload = function() {
                 alert('Successfully loaded selected file');
             }
             self.fromXMLText(xml);
-
-            //save opened file directory
-            this.currentOpenFile = fileName;
-
-            console.log('currentOpenFile : ', this.currentOpenFile);
         });
 
     })

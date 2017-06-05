@@ -302,17 +302,6 @@ SQL.Row.prototype.redraw = function() {
     this.owner.redraw();
     this.owner.owner.rowManager.redraw();
 
-    //auto save
-    console.log('autosave currentOpenFile : ', SQL.IO.currentOpenFile);
-    if (SQL.IO.currentOpenFile != '') {
-        var fs = require('fs');
-        var xml = this.owner.toXML();
-
-        fs.writeFile(fileName, xml, function(err) {
-
-        });
-
-    }
 }
 
 SQL.Row.prototype.addRelation = function(r) {
