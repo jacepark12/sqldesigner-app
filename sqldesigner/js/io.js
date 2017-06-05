@@ -146,6 +146,26 @@ SQL.IO.prototype.clientsave = function() {
 
 }
 
+// SQL.IO.prototype.autoSave = function() {
+//     const { dialog } = require('electron').remote;
+//     var fs = require('fs');
+//     var xml = this.owner.toXML();
+//     dialog.showSaveDialog({
+//         filters: [
+//             { name: 'sqldesigner', extensions: ['sqd'] }
+//         ]
+//     }, function(fileName) {
+
+//         if (fileName === undefined) return;
+
+//         fs.writeFile(fileName, xml, function(err) {
+
+//         });
+
+//     });
+
+// }
+
 SQL.IO.prototype.clientload = function() {
     const { dialog } = require('electron').remote;
     var fs = require('fs');
@@ -176,16 +196,14 @@ SQL.IO.prototype.clientload = function() {
             }
             self.fromXMLText(xml);
 
+            //save opened file directory
+            this.currentOpenFile = fileName;
+
+            console.log('currentOpenFile : ', this.currentOpenFile);
         });
 
-    });
+    })
 
-    // if (!xml) {
-    //     alert(_("empty"));
-    //     return;
-    // }
-
-    // this.fromXMLText(xml);
 }
 
 SQL.IO.prototype.promptName = function(title, suffix) {

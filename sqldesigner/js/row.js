@@ -2,6 +2,8 @@
 /* global SQL, OZ */
 
 SQL.Row = function(owner, title, data) {
+
+    //    this.io = new SQL.IO(owner);
     this.owner = owner;
     this.relations = [];
     this.keys = [];
@@ -269,6 +271,7 @@ SQL.Row.prototype.load = function() { /* put data to expanded form */
 }
 
 SQL.Row.prototype.redraw = function() {
+
     var color = this.getColor();
     this.dom.container.style.borderColor = color;
     OZ.DOM.removeClass(this.dom.title, "primary");
@@ -298,6 +301,18 @@ SQL.Row.prototype.redraw = function() {
     this.dom.typehint.innerHTML = typehint.join(" ");
     this.owner.redraw();
     this.owner.owner.rowManager.redraw();
+
+    //auto save
+    console.log('autosave currentOpenFile : ', SQL.IO.currentOpenFile);
+    if (SQL.IO.currentOpenFile != '') {
+        var fs = require('fs');
+        var xml = this.owner.toXML();
+
+        fs.writeFile(fileName, xml, function(err) {
+
+        });
+
+    }
 }
 
 SQL.Row.prototype.addRelation = function(r) {
