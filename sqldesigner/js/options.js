@@ -111,7 +111,7 @@ SQL.Options.prototype.save = function() {
     this.saveElectronSetting("pattern", this.dom.optionpattern.value);
     this.saveElectronSetting("hide", this.dom.optionhide.checked);
     this.saveElectronSetting("vector", this.dom.optionvector.checked);
-    this.saveElectronSetting("showszie", this.dom.optionshowsize.checked);
+    this.saveElectronSetting("showsize", this.dom.optionshowsize.checked);
 
     console.log('this.dom.optionshowtype : ', this.dom.optionshowtype.checked);
     this.saveElectronSetting("showtype", this.dom.optionshowtype.checked);
