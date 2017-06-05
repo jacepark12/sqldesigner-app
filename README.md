@@ -23,6 +23,16 @@ re-designed SQL Desginer was create by [Lt-Mayonesa]
 
 ![Screenshot](./images/screenshot1.png)
 
+## Added Features
+
+* Packaged as Cross-Platform application (OSX, Window, Linux)
+
+* Save workspace file at local
+
+* Configuration save at local
+
+* JPA Entity Class export
+
 ## Dev
 
 ```
