@@ -1,4 +1,16 @@
 {
+    "build": {
+        "productName": "sqldesigenr",
+        "appId": "com.sqldesigner",
+        "asar": true,
+        "protocols": { "name": "SqlDesigner", "schemes": ["SqlDesigner"] },
+        "mac": { "target": ["default"], "icon": "./build/icon.icns" },
+        "dmg": { "title": "SqlDesigner", "icon": "./build/icon.icns" },
+        "win": { "target": ["zip", "nsis"], "icon": "./build/icon.icns" },
+        "linux": { "target": ["AppImage", "deb", "rpm", "zip", "tar.gz"], "icon": "./resources/linuxicon" },
+        "nsis": { "oneClick": false, "allowToChangeInstallationDirectory": true },
+        "directories": { "buildResources": "resources/installer/", "output": "dist/", "app": "." }
+    },
     "name": "sqldesigner",
     "productName": "Sqldesigner",
     "version": "0.1.0",
@@ -15,7 +27,14 @@
         "start": "electron .",
         "build": "electron-packager . --out=dist --asar --overwrite --all",
         "pack": "build --dir",
-        "dist": "build"
+        "dist": "build",
+        "build:osx": "build --mac",
+        "build:linux": "npm run build:linux32 && npm run build:linux64",
+        "build:linux32": "build --linux --ia32",
+        "build:linux64": "build --linux --x64",
+        "build:win": "npm run build:win32 && npm run build:win64",
+        "build:win32": "build --win --ia32",
+        "build:win64": "build --win --x64"
     },
     "files": [
         "index.js",
@@ -43,12 +62,5 @@
             "node",
             "browser"
         ]
-    },
-    "build": {
-        "appId": "sqldesigner",
-        "mac": {
-            "icon": "/Users/parkjaesung/Documents/workspace/Github/sqldesigner/build/icon.icns",
-            "category": "development.tools"
-        }
     }
 }
