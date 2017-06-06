@@ -1,8 +1,8 @@
 {
     "name": "sqldesigner",
     "productName": "Sqldesigner",
-    "version": "0.0.0",
-    "description": "My badass app",
+    "version": "0.1.0",
+    "description": "Sqldesigner application",
     "license": "MIT",
     "repository": "pRivAte12/sqldesigner",
     "author": {
@@ -47,7 +47,8 @@
     "build": {
         "appId": "sqldesigner",
         "mac": {
-            "category": "your.app.category.type"
+            "icon": "/Users/parkjaesung/Documents/workspace/Github/sqldesigner/build/icon.icns",
+            "category": "development.tools"
         }
     }
 }
