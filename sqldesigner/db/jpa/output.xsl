@@ -15,12 +15,6 @@
 
     <!-- This is the root of output -->
     <xsl:template match="/sql">
-        <!--<xsl:text>db_engine = sa.create_engine('sqlite:///db.sqlite')&#xa;</xsl:text>
-        <xsl:text>metadata = sa.MetaData()&#xa;</xsl:text>
-        <xsl:apply-templates select="table" />
-        <xsl:text>&#xa;</xsl:text>-->
-
-        <!-- Construct the mapping objects -->
         <xsl:text>//Entity class</xsl:text>
         <xsl:text>&#xa;</xsl:text>
         <xsl:text>&#xa;</xsl:text>
@@ -42,39 +36,6 @@
             <xsl:text>&#xa;</xsl:text>
         </xsl:for-each>
 
-        <!-- Mapping the tables to the objects -->
-        <xsl:text>&#xa;&#xa;# Declare mappings</xsl:text>
-
-        <xsl:for-each select="table">
-            <xsl:text>&#xa;mapper(</xsl:text>
-            <xsl:value-of select="@name"/>
-            <xsl:text>, </xsl:text>
-            <xsl:value-of select="@name"/>
-            <xsl:text>_table)</xsl:text>
-        </xsl:for-each>
-
-        <!-- Create a session to manage the objects -->
-        <xsl:text>&#xa;&#xa;# Create a session</xsl:text>
-        <xsl:text>&#xa;session = sessionmaker(bind=db_engine)&#xa;</xsl:text>
-
-    </xsl:template>
-
-    <!-- What a Table look like -->
-    <xsl:template match="table">
-        <xsl:variable name="keys" select="''" />
-        <!-- First place the header -->
-        <xsl:text>&#xa;</xsl:text> <!-- Newline -->
-        <xsl:text>&#xa;# Table definition - </xsl:text><xsl:value-of select="@name"/>
-        <xsl:text>&#xa;# </xsl:text><xsl:value-of select="./comment"/>
-        <xsl:text>&#xa;</xsl:text>
-        <xsl:value-of select="@name"/>
-        <xsl:text>_table = sa.Table("</xsl:text>
-        <xsl:value-of select="@name"/>
-        <xsl:text>", metadata,</xsl:text>
-        <!-- Next iterate over the Columns -->
-        <xsl:apply-templates select="row"/>
-        <!-- Finish the table -->
-        <xsl:text>)</xsl:text>
     </xsl:template>
 
     <xsl:template match="row">
@@ -115,14 +76,6 @@
     <xsl:template match="datatype">
         <xsl:value-of select="."/>
         <xsl:text> </xsl:text>
-    </xsl:template>
-
-    <xsl:template match="relation">
-        <xsl:text>, sa.ForeignKey("</xsl:text>
-        <xsl:value-of select="@table" />
-        <xsl:text>.</xsl:text>
-        <xsl:value-of select="@row" />
-        <xsl:text>")</xsl:text>
     </xsl:template>
 
     <xsl:template match="comment">
