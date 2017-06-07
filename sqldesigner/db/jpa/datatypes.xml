@@ -7,8 +7,8 @@
 	</group>
 
 	<group label="Character" color="rgb(255,200,200)">
-        <type label="String" length="1" sql="string" quote="'"/>
-        <type label="Text" length="0" sql="string" quote="'"/>
+        <type label="String" length="1" sql="String" quote="'"/>
+        <type label="Text" length="0" sql="String" quote="'"/>
     </group>
 
     <group label="Date &amp; Time" color="rgb(200,255,200)">
