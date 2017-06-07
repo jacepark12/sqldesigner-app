@@ -33,6 +33,20 @@ re-designed SQL Desginer was create by [Lt-Mayonesa]
 
 * JPA Entity Class export
 
+## Supported platform
+
+* OSX
+
+* Linux
+
+* Windows
+
+## Known Issues
+
+* Unable to close application by clicking close button in application window
+
+***Please press Control(CMD in OSX) + Q to close application ***
+
 ## Dev
 
 ```
@@ -53,6 +67,9 @@ $ npm run build
 
 Builds the app for macOS, Linux, and Windows, using [electron-packager](https://github.com/electron-userland/electron-packager).
 
+## Release Versions
+
+* 0.1.0 -> First Release
 
 ## License
 
