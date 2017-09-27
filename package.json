@@ -6,8 +6,8 @@
         "protocols": { "name": "SqlDesigner", "schemes": ["SqlDesigner"] },
         "mac": { "target": ["default"], "icon": "./build/icon.icns" },
         "dmg": { "title": "SqlDesigner", "icon": "./build/icon.icns" },
-        "win": { "target": ["zip", "nsis"], "icon": "./build/icon.icns" },
-        "linux": { "target": ["AppImage", "deb", "rpm", "zip", "tar.gz"], "icon": "./resources/linuxicon" },
+        "win": { "target": ["zip", "nsis"], "icon": "./build/icon.ico" },
+        "linux": { "target": ["AppImage", "deb", "rpm", "zip", "tar.gz"] },
         "nsis": { "oneClick": false, "allowToChangeInstallationDirectory": true },
         "directories": { "buildResources": "resources/installer/", "output": "dist/", "app": "." }
     },

@@ -36,6 +36,14 @@ re-designed SQL Desginer was create by [Lt-Mayonesa]
 
 * JPA Entity Class export
 
+Example usage of JPA Entity class export)
+
+![JpaSample](./images/jpa_sample.png)
+
+output: 
+
+![JpaOutput](./images/jpa_output.png)
+
 ## Supported platform
 
 * OSX
@@ -43,6 +51,10 @@ re-designed SQL Desginer was create by [Lt-Mayonesa]
 * Linux
 
 * Windows
+
+## How to Install
+
+Check relase of this repo.
 
 ## Known Issues
 
